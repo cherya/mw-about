@@ -1,0 +1,48 @@
+.inventory-wrapper {
+   display: flex;
+   height: 100%;
+   box-sizing: border-box;
+   padding: 10px;
+}
+
+.left-wrapper {
+   display: flex;
+   flex-direction: column;
+   flex: 1;
+}
+
+.right-wrapper {
+   display: flex;
+   flex-direction: column;
+   flex: 3;
+}
+
+.inventory-wrapper .statusbar {
+   margin: 0 10px 10px 0;
+}
+
+.inventory-wrapper .character-model{
+   flex: 1;
+   margin: 0 10px 0 0;
+   position: relative;
+}
+
+.inventory-wrapper .character-model:before{
+   display: block;
+   content: "";
+   height: 100%;
+   padding-left: 80%;
+}
+
+.inventory-wrapper .inventory {
+   flex: 1;
+}
+
+.inventory-wrapper .inventory-buttons {
+   height: 18px;
+   margin: -2px 0 14px 0;
+}
+
+.inventory-wrapper .statusbar-percentage{
+   background-color: rgb(55, 49, 228);
+}

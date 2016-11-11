@@ -1,0 +1,21 @@
+{
+  "name": "hello-world",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "0.7.0"
+  },
+  "dependencies": {
+    "google-map-react": "^0.21.3",
+    "immutability-helper": "^2.0.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-rnd": "^4.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

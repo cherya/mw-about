@@ -1,0 +1,20 @@
+.table td, .table th {
+   text-align: right;
+}
+
+.table thead th {
+   font-weight: 400;
+}
+
+.table thead {
+   color: #ffedbc;
+   font-weight: 400;
+}
+
+.table td:first-child, .table th:first-child{
+   text-align: left;
+}
+
+.table tr:hover td {
+   color: #ffedbc;
+}

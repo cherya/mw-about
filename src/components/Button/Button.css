@@ -1,0 +1,11 @@
+button {
+   background: transparent;
+   color: #c8ae8e;
+   border-color: #c8ae8e;
+   border-width: 2px;
+   font-family: inherit;
+   font-size: 13px;
+   padding: 3px 5px 0px 5px;
+   line-height: 13px;
+   outline: none;
+}

@@ -1,0 +1,23 @@
+.gm-style-cc div:first-child {
+   opacity: 0.1!important;
+}
+
+.map-window .widnow-wrapper {
+   padding: 0;
+}
+
+.gm-style > div > a > div > img {
+   opacity: 0.1!important;
+}
+
+.zoom-button{
+   position: absolute;
+   right: 10px;
+   bottom: 17px;
+}
+
+.map-wrapper{
+   width: 100%;
+   height: 100%;
+   background: wheat;
+}

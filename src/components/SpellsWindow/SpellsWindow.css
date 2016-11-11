@@ -1,0 +1,44 @@
+.spells-wrapper {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   box-sizing: border-box;
+   padding: 10px;
+}
+
+.character-buffs { 
+   width: 100%;
+   padding: 2px 3px;
+   box-sizing: border-box;
+   height: 24px;
+}
+
+.character-spells {
+   margin: 10px 0 0 0;
+   padding: 3px;
+}
+
+.character-spells .table{
+   width: 100%;
+}
+
+.buff {
+   width: 16px;
+   height: 16px;
+}
+
+.character-spells table:first-child{
+   position: relative;
+   padding-bottom: 10px;
+   margin-bottom: 10px;
+}
+
+.character-spells table:first-child:before {
+  content : "";
+  position: absolute;
+  left    : 10px;
+  right: 10px;
+  bottom  : 0;
+  height  : 1px;
+  border-bottom: 1px solid #c8ae8e;
+}

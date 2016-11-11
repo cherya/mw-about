@@ -1,0 +1,28 @@
+.character-status {
+   width: 100%;
+   border-collapse: collapse;
+}
+
+.character-status tbody tr td:first-child{
+   text-align: left;
+}
+
+.character-status-bar{
+   width: 100%;
+}
+
+.cahracter-skills{
+   height: 100%;
+}
+
+.character-status-bar__health .statusbar-percentage{
+   background-color: rgb(210, 4, 8);
+}
+
+.character-status-bar__magica .statusbar-percentage{
+   background-color: rgb(55, 49, 228);
+}
+
+.character-status-bar__fatigue .statusbar-percentage{
+   background-color: rgb(3, 159, 7);
+}
