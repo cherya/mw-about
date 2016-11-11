@@ -5,6 +5,7 @@ import SpellsWindow from './components/SpellsWindow/SpellsWindow.js'
 import InventoryWindow from './components/InventoryWindow/InventoryWindow.js'
 import Window from './components/Window/Window.js'
 import MapWindow from './components/MapWindow/MapWindow.jsx'
+import { zIndexManager } from './components/Utils.js'
 import character from './character.js'
 import update from 'immutability-helper'
 
@@ -78,34 +79,29 @@ class App extends Component {
       }
    }
 
-   state = JSON.parse(localStorage.getItem('state') || '{}')
-
+   // Save and load state from localStorage
+   state = JSON.parse(localStorage.getItem('mw-state') || '{}')
    componentDidUpdate(prevProps, prevState) {
-      localStorage.state = JSON.stringify(this.state);
+      localStorage['mw-state'] = JSON.stringify(this.state);
    }
 
-   maxZIndex = 4;
-
    moveToTop(windowId) {
-      const newState = 
-         update(this.state, {
-            zIndexes: {
-               $merge: {
-                  [windowId]: this.maxZIndex
-               }
-            }
-         });
-      this.maxZIndex++;
-      this.setState(newState);
+      const newZIndexes = zIndexManager.getNewZIndexes(this.state.zIndexes, windowId);
+      this.setState({zIndexes: newZIndexes})
    }
 
    onWindowResizeOrDragStart(windowId) {
+      this.moving = true;
       this.moveToTop(windowId);
    }
 
    onWindowClick(windowId){
-      this.moveToTop(windowId);
+      if (!this.moving){ 
+         this.moveToTop(windowId);
+      }
    }
+
+   onWindowResizeOrDragStop
 
    onWindowResizeStop(windowId, direction, styleSize, clientSize, event) {
       const newState = 
@@ -120,6 +116,7 @@ class App extends Component {
             }
          });
       this.setState(newState);
+      this.moving = false;
    }
 
    onWindowDragStop(windowId, event, ui){
@@ -135,6 +132,7 @@ class App extends Component {
             }
          });
       this.setState(newState);
+      this.moving = false;
    }
 
    render() {
@@ -142,9 +140,9 @@ class App extends Component {
          window_divs = [],
          components = {
             'character': <CharacterWindow character={ character }/>,
-            'map': <MapWindow />,
             'inventory': <InventoryWindow character={ character } />,
-            'spells': <SpellsWindow character={ character } />
+            'spells': <SpellsWindow character={ character } />,
+            'map': <MapWindow />
          }
 
       for (var key in windows) {
