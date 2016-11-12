@@ -85,29 +85,28 @@ class App extends Component {
       localStorage['mw-state'] = JSON.stringify(this.state);
    }
 
-   moveToTop(windowId) {
-      const newZIndexes = zIndexManager.getNewZIndexes(this.state.zIndexes, windowId);
+   // move window to top
+   moveToTop(windowKey) {
+      const newZIndexes = zIndexManager.getNewZIndexes(this.state.zIndexes, windowKey);
       this.setState({zIndexes: newZIndexes})
    }
 
-   onWindowResizeOrDragStart(windowId) {
+   onWindowResizeOrDragStart(windowKey) {
       this.moving = true;
-      this.moveToTop(windowId);
+      this.moveToTop(windowKey);
    }
 
-   onWindowClick(windowId){
+   onWindowClick(windowKey){
       if (!this.moving){ 
-         this.moveToTop(windowId);
+         this.moveToTop(windowKey);
       }
    }
 
-   onWindowResizeOrDragStop
-
-   onWindowResizeStop(windowId, direction, styleSize, clientSize, event) {
+   onWindowResizeStop(windowKey, direction, styleSize, clientSize, event) {
       const newState = 
          update(this.state, {
             windows: {
-               [windowId]: {
+               [windowKey]: {
                   $merge: {
                      width: styleSize.width,
                      height: styleSize.height
@@ -119,11 +118,11 @@ class App extends Component {
       this.moving = false;
    }
 
-   onWindowDragStop(windowId, event, ui){
+   onWindowDragStop(windowKey, event, ui){
       const newState = 
          update(this.state, {
             windows: {
-               [windowId]: {
+               [windowKey]: {
                   $merge: {
                      top: ui.position.top,
                      left: ui.position.left
