@@ -12,11 +12,23 @@ function createMapOptions(maps) {
 }
 
 class MapWindow extends Component {
+
+   constructor(props) {
+      super(props);
+      this.onClick = this.onClick.bind(this);
+      this.state = {}
+   }
+
    static defaultProps = {
       center: {lat: 57.630563, lng: 39.840892},
       zoom: 12,
       greatPlaceCoords: {lat: 57.626898, lng: 39.877670},
+      scrollwheel: false
    };
+
+   onClick() {
+      console.log('click');
+   }
 
    render(){
       return (
@@ -26,9 +38,9 @@ class MapWindow extends Component {
                defaultCenter={this.props.center}
                defaultZoom={this.props.zoom}
                options={createMapOptions}
-               bootstrapURLKeys={{key: 'AIzaSyD_Tgh8pFBX6x_Eh23E699vNfm_zOIf1yc'}}>
+               bootstrapURLKeys={{key: ''}}>
             </GoogleMap>
-            <Button caption="Global" className="zoom-button"/>
+            <Button caption="Global" className="zoom-button" onClick={this.onClick}/>
          </div>
       )
    }
