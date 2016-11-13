@@ -16,7 +16,8 @@ class MapWindow extends Component {
    constructor(props) {
       super(props);
       this.onClick = this.onClick.bind(this);
-      this.state = {}
+      this.onGoogleApiLoaded = this.onGoogleApiLoaded.bind(this);
+      this.state = {local: true}
    }
 
    static defaultProps = {
@@ -27,20 +28,33 @@ class MapWindow extends Component {
    };
 
    onClick() {
-      console.log('click');
+      this.map.setCenter(this.props.center);
+      this.map.setZoom(this.state.local ? 3 : 12);
+   }
+
+   onGoogleApiLoaded(api){
+      this.map = api.map;
+      this.map.addListener('zoom_changed', function() {
+         if (this.map.zoom < 8) {
+            this.setState({local: false});
+         } else {
+            this.setState({local: true});
+         }
+      }.bind(this));
    }
 
    render(){
       return (
          <div className="map-wrapper">
             <GoogleMap
-               onGoogleApiLoaded={this.onApiLoaded}
                defaultCenter={this.props.center}
                defaultZoom={this.props.zoom}
                options={createMapOptions}
-               bootstrapURLKeys={{key: ''}}>
+               bootstrapURLKeys={{key: ''}}
+               onGoogleApiLoaded={this.onGoogleApiLoaded} 
+               yesIWantToUseGoogleMapApiInternals>
             </GoogleMap>
-            <Button caption="Global" className="zoom-button" onClick={this.onClick}/>
+            <Button caption={this.state.local ? 'World' : 'Local'} className="zoom-button" onClick={this.onClick}/>
          </div>
       )
    }

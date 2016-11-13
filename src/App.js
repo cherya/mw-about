@@ -136,7 +136,7 @@ class App extends Component {
 
    render() {
       const { windows, zIndexes } = this.state,
-         window_divs = [],
+         windowsContainers = [],
          components = {
             'character': <CharacterWindow character={ character }/>,
             'inventory': <InventoryWindow character={ character } />,
@@ -144,10 +144,10 @@ class App extends Component {
             'map': <MapWindow />
          }
 
-      for (var key in windows) {
+      for (let key in windows) {
          if (windows.hasOwnProperty(key)){
             const curWindow = windows[key];
-            window_divs.push((
+            windowsContainers.push((
                   <Window 
                      key={key}
                      id={key}
@@ -174,7 +174,7 @@ class App extends Component {
 
       return (
          <div className="App">
-            {window_divs}
+            {windowsContainers}
          </div>
       );
    }
