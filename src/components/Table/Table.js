@@ -3,8 +3,18 @@ import './Table.css'
 
 class Table extends Component {
 
+   constructor(props) {
+      super(props);
+      this.onMouseEnter = this.onMouseEnter.bind(this);
+      this.onMouseLeave = this.onMouseLeave.bind(this);
+   }
+
    get data(){
       return this.props.data || {};
+   }
+
+   get name(){
+      return this.props.name || 'table'
    }
 
    getRows(data) {
@@ -12,7 +22,7 @@ class Table extends Component {
       for (key in data) {
          if (data.hasOwnProperty(key)){
             rows.push(
-               <tr key={ key }>
+               <tr key={ key } onMouseEnter={this.onMouseEnter} onMouseLeave={this.onMouseLeave} id={key}>
                   <td>{ key }</td>
                   <td>{ data[key] }</td>
                </tr>
@@ -20,6 +30,23 @@ class Table extends Component {
          }
       }
       return rows;
+   }
+
+   onMouseEnter({target, clientX, clientY}){
+      const id = target.parentElement['id'];
+      if (this.props.onActivateData){
+         this.props.onActivateData({
+            domId: id,
+            id: id,
+            namespase: this.name,
+            clientX: clientX,
+            clientY: clientY
+         });
+      }
+   }
+
+   onMouseLeave(){
+      this.props.onDeactivateData();
    }
 
    /**

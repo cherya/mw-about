@@ -14,7 +14,10 @@ class CharacterWindow extends Component {
       for (var key in character.skills){
          if (character.skills.hasOwnProperty(key)){
             skills.push(
-                  <Table head={[key]} data={character.skills[key]} key={key} />
+                  <Table head={[key]} data={character.skills[key]} key={key}
+                     name="skills"
+                     onActivateData={this.props.onActivateData} 
+                     onDeactivateData={this.props.onDeactivateData} />
                )
          }
       }
@@ -29,10 +32,16 @@ class CharacterWindow extends Component {
                   <CharacterStatus character={this.character}/>
                </div>
                <div className="character-group tiny-border">
-                  <Table data={ this.character.main } />
+                  <Table data={ this.character.main } 
+                     name="main"
+                     onActivateData={this.props.onActivateData} 
+                     onDeactivateData={this.props.onDeactivateData}/>
                </div>
                <div className="character-group tiny-border">
-                  <Table data={ this.character.characteristics } />
+                  <Table data={ this.character.characteristics }
+                     name="characteristics"
+                     onActivateData={this.props.onActivateData} 
+                     onDeactivateData={this.props.onDeactivateData}/>
                </div>
             </div>
             <div className="character-right-group">

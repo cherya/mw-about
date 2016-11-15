@@ -6,6 +6,10 @@
    padding: 0;
 }
 
+.map-window .widnow-wrapper *{
+   cursor: default!important;
+}
+
 .gm-style > div > a > div > img {
    opacity: 0.1!important;
 }
@@ -23,7 +27,9 @@
 }
 
 .map-marker{
-   width: 6px;
-   height: 6px;
+   width: 10px;
+   height: 10px;
    border: 2px solid wheat;
+   cursor: default;
+   box-sizing: border-box;
 }

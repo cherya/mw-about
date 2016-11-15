@@ -6,6 +6,7 @@ import InventoryWindow from './components/InventoryWindow/InventoryWindow.js'
 import Window from './components/Window/Window.js'
 import MapWindow from './components/MapWindow/MapWindow.jsx'
 import { zIndexManager } from './components/Utils.js'
+import Popup from './components/Popup/Popup.jsx'
 import character from './character.js'
 import update from 'immutability-helper'
 
@@ -16,10 +17,15 @@ class App extends Component {
       this.onWindowResizeStop = this.onWindowResizeStop.bind(this);
       this.onWindowDragStop = this.onWindowDragStop.bind(this);
       this.onWindowClick = this.onWindowClick.bind(this);
+      this.onActivateData = this.onActivateData.bind(this);
+      this.onDeactivateData = this.onDeactivateData.bind(this);
+      this.onPopupMouseEnter = this.onPopupMouseEnter.bind(this);
+      this.onPopupMouseLeave = this.onPopupMouseLeave.bind(this);
 
       this.state = {
          windows: this.state.windows || this.initialState.windows,
-         zIndexes: this.initialState.zIndexes
+         zIndexes: this.initialState.zIndexes,
+         popup: this.initialState.popup
       }
    }
 
@@ -76,7 +82,45 @@ class App extends Component {
          character: 2,
          inventory: 3,
          spells: 4
+      },
+      popup: {
+         visible: false,
+         top: 0,
+         left: 0,
+         content: ''
       }
+   }
+
+   onActivateData({domId, namespace, id, clientX, clientY}){
+      const {left, top, height} = document.getElementById(domId).getBoundingClientRect();
+      
+      this.setState({
+         popup: {
+            visible: true,
+            top: clientY + 15,
+            left: clientX,
+            content: id
+         }
+      });
+   }
+
+   onDeactivateData(){
+      //TODO: onDeactivateData triggers before onPopupMouseEnter for mapWindow
+      if (!this.popupHovered){
+         this.setState({ 
+            popup: {
+               visible: false
+            }
+         });
+      }
+   }
+
+   onPopupMouseEnter(){
+      this.popupHovered = true;
+   }
+
+   onPopupMouseLeave(){
+      this.popupHovered = false;
    }
 
    // Save and load state from localStorage
@@ -135,20 +179,21 @@ class App extends Component {
    }
 
    render() {
-      const { windows, zIndexes } = this.state,
+      const { windows, zIndexes, popup } = this.state,
          windowsContainers = [],
+         //TODO: looks terribly
          components = {
-            'character': <CharacterWindow character={ character }/>,
-            'inventory': <InventoryWindow character={ character } />,
-            'spells': <SpellsWindow character={ character } />,
-            'map': <MapWindow />
+            'character': <CharacterWindow character={character} onActivateData={this.onActivateData} onDeactivateData={this.onDeactivateData}/>,
+            'inventory': <InventoryWindow character={character} onActivateData={this.onActivateData} onDeactivateData={this.onDeactivateData}/>,
+            'spells': <SpellsWindow character={character} onActivateData={this.onActivateData} onDeactivateData={this.onDeactivateData}/>,
+            'map': <MapWindow places={character.places} onActivateData={this.onActivateData} onDeactivateData={this.onDeactivateData}/>
          }
 
       for (let key in windows) {
          if (windows.hasOwnProperty(key)){
             const curWindow = windows[key];
             windowsContainers.push((
-                  <Window 
+                  <Window
                      key={key}
                      id={key}
                      title={curWindow.title} 
@@ -175,6 +220,13 @@ class App extends Component {
       return (
          <div className="App">
             {windowsContainers}
+            <Popup 
+               left={popup.left} 
+               top={popup.top} 
+               content={popup.content}
+               visible={popup.visible}
+               onMouseEnter={this.onPopupMouseEnter}
+               onMouseLeave={this.onPopupMouseLeave}/>
          </div>
       );
    }

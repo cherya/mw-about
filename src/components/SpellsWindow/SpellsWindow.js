@@ -18,8 +18,12 @@ class SpellsWindow extends Component {
                <img src={process.env.PUBLIC_URL + '/images/spells/Fortify_Health.jpg'} className="buff" alt="kek"></img>
             </div>
             <div className="character-spells tiny-border">
-               <Table head="Powers" data={this.character.powers}/>
-               <Table head={["Spells", "Cost/Chance"]} data={this.character.spells} />
+               <Table head="Powers" data={this.character.powers} 
+                     onActivateData={this.props.onActivateData} 
+                     onDeactivateData={this.props.onDeactivateData}/>
+               <Table head={["Spells", "Cost/Chance"]} data={this.character.spells} 
+                     onActivateData={this.props.onActivateData} 
+                     onDeactivateData={this.props.onDeactivateData}/>
             </div>
          </div>
       )

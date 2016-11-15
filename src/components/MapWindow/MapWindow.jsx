@@ -18,7 +18,8 @@ class MapWindow extends Component {
       super(props);
       this.onButtonClick = this.onButtonClick.bind(this);
       this.onChange = this.onChange.bind(this);
-
+      this.onChildMouseEnter = this.onChildMouseEnter.bind(this);
+      this.onChildMouseLeave = this.onChildMouseLeave.bind(this);
       this.state = {
          zoom: this.props.zoom,
          center: this.props.center
@@ -27,7 +28,8 @@ class MapWindow extends Component {
 
    LOCAL_ZOOM = 12
    WORLD_ZOOM = 3
-   ZOOM_THRESHHOLD = 8
+   ZOOM_THRESHHOLD = 7
+   MARKER_PREFIX = 'map-marker-';
 
    static defaultProps = {
       center: {lat: 57.630563, lng: 39.840892},
@@ -52,7 +54,28 @@ class MapWindow extends Component {
       this.setState({zoom: zoom})
    }
 
+   onChildMouseEnter(id){
+      this.props.onActivateData({
+         domId: this.MARKER_PREFIX + id,
+         namespace: 'map',
+         id: id
+      });
+   }
+
+   onChildMouseLeave(){
+      this.props.onDeactivateData();
+   }
+
    render(){
+
+      const places = [];
+      for (let i = 0; i < this.props.places.length; i++){
+         const place = this.props.places[i];
+         places.push(
+               <MapMarker lat={place.lat} lng={place.lng} key={i} id={this.MARKER_PREFIX + i}/>
+            )
+      }
+
       return (
          <div className="map-wrapper">
             <GoogleMap
@@ -66,7 +89,7 @@ class MapWindow extends Component {
                onChildMouseLeave={this.onChildMouseLeave}
                onGoogleApiLoaded={this.onGoogleApiLoaded} 
                yesIWantToUseGoogleMapApiInternals>
-               <MapMarker lat="57.630563" lng="39.840892" />
+               {places}
             </GoogleMap>
             <Button caption={this.state.zoom > this.ZOOM_THRESHHOLD ? 'World' : 'Local'} 
                     className="zoom-button" 

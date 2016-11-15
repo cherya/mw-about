@@ -4,7 +4,7 @@ class MapWindow extends Component {
 
    render(){
       return (
-         <div className="map-marker"></div>
+         <div className="map-marker" id={this.props.id}></div>
       )
    }
 }

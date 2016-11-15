@@ -3,7 +3,7 @@ export default
    "name": "Kek",
    "main": {
       "Level": 22,
-      "Race": "Pyos",
+      "Race": "Human",
       "Class": "Developer"
    },
    "status": {
@@ -53,5 +53,17 @@ export default
    "powers": {
       "Ancestor Guardian": "",
       "Lover's kiss": ""
-   }
+   },
+   "places": [
+      {
+         "lng": 39.840892,
+         "lat": 57.630563,
+         "name": "Company Tensor"
+      },
+      {
+         "lng": 39.845892,
+         "lat": 57.635563,
+         "name": "Kek"
+      },
+   ]
 }
