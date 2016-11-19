@@ -1,3 +1,4 @@
+import skills from './skills.js'
 export default 
 {
    "name": "Kek",
@@ -24,25 +25,7 @@ export default
       "Personality": 55,
       "Luck": 13
    },
-   "skills": {
-      "Major Skills": {
-         "Short Blade": 101,
-         "Security": 51,
-         "Sneak": 69,
-         "Conjuration": 45,
-         "Light Armor": 64
-      },
-      "Minor Skills": {
-         "Athletics": 29,
-         "Mythticism": 31,
-         "Alchemy": 45,
-         "Acrobatics": 34,
-         "Spear": 51
-      },
-      "Misk Skills": {
-         "Block": 6,
-      }
-   },
+   "skills": skills,
    "spells": {
       "Aralor's Intervention": "8/89",
       "Baleful Glower": "6/100",

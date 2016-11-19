@@ -33,3 +33,7 @@
    cursor: default;
    box-sizing: border-box;
 }
+
+#map_canvas{
+   background-color: black !important
+}

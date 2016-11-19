@@ -15,7 +15,7 @@ class CharacterWindow extends Component {
          if (character.skills.hasOwnProperty(key)){
             skills.push(
                   <Table head={[key]} data={character.skills[key]} key={key}
-                     name="skills"
+                     name={key}
                      onActivateData={this.props.onActivateData} 
                      onDeactivateData={this.props.onDeactivateData} />
                )

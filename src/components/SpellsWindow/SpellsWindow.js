@@ -19,9 +19,11 @@ class SpellsWindow extends Component {
             </div>
             <div className="character-spells tiny-border">
                <Table head="Powers" data={this.character.powers} 
+                     name="powers"
                      onActivateData={this.props.onActivateData} 
                      onDeactivateData={this.props.onDeactivateData}/>
                <Table head={["Spells", "Cost/Chance"]} data={this.character.spells} 
+                     name="spells"
                      onActivateData={this.props.onActivateData} 
                      onDeactivateData={this.props.onDeactivateData}/>
             </div>

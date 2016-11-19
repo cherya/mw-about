@@ -124,6 +124,12 @@ class Window extends Component {
    }
 
    render() {
+      const children = React.Children.map(this.props.children,
+         (child) => React.cloneElement(child, {
+            onActivateData: this.props.onActivateData,
+            onDeactivateData: this.props.onDeactivateData
+         })
+      );
       const classes = this.props.className ? 'window ' + this.props.className: 'window';
       return (
             <Rnd initial={{
@@ -148,7 +154,7 @@ class Window extends Component {
                      <div className={classes} style={ this.getStyles() }>
                         <div className="window-title-wrapper"><div className="window-title">{ this.props.title }</div></div>
                         <div className="widnow-wrapper">
-                           { this.props.children }
+                           { children }
                         </div>
                      </div>
             </Rnd>

@@ -8,9 +8,15 @@ import './MapWindow.css'
 function createMapOptions(maps) {
   return {
       styles: MapTheme,
-      disableDefaultUI: true
+      disableDefaultUI: true,
+      backgroundColor: '#402e20'
   };
 }
+
+const LOCAL_ZOOM = 12
+const WORLD_ZOOM = 3
+const ZOOM_THRESHHOLD = 7
+const MARKER_PREFIX = 'map-marker-';
 
 class MapWindow extends Component {
 
@@ -26,11 +32,6 @@ class MapWindow extends Component {
       }
    }
 
-   LOCAL_ZOOM = 12
-   WORLD_ZOOM = 3
-   ZOOM_THRESHHOLD = 7
-   MARKER_PREFIX = 'map-marker-';
-
    static defaultProps = {
       center: {lat: 57.630563, lng: 39.840892},
       zoom: 12,
@@ -39,7 +40,7 @@ class MapWindow extends Component {
 
    onButtonClick() {
       this.setState((prevState, props) => ({
-         zoom: prevState.zoom > this.ZOOM_THRESHHOLD ? this.WORLD_ZOOM : this.LOCAL_ZOOM,
+         zoom: prevState.zoom > ZOOM_THRESHHOLD ? WORLD_ZOOM : LOCAL_ZOOM,
          center: props.center
       }));
    }
@@ -56,8 +57,7 @@ class MapWindow extends Component {
 
    onChildMouseEnter(id){
       this.props.onActivateData({
-         domId: this.MARKER_PREFIX + id,
-         namespace: 'map',
+         namespace: 'places',
          id: id
       });
    }
@@ -72,7 +72,7 @@ class MapWindow extends Component {
       for (let i = 0; i < this.props.places.length; i++){
          const place = this.props.places[i];
          places.push(
-               <MapMarker lat={place.lat} lng={place.lng} key={i} id={this.MARKER_PREFIX + i}/>
+               <MapMarker lat={place.lat} lng={place.lng} key={i} id={MARKER_PREFIX + i}/>
             )
       }
 

@@ -14,7 +14,7 @@ class Table extends Component {
    }
 
    get name(){
-      return this.props.name || 'table'
+      return this.props.name || ''
    }
 
    getRows(data) {
@@ -29,6 +29,7 @@ class Table extends Component {
             )
          }
       }
+      console.log(data);
       return rows;
    }
 
@@ -36,9 +37,8 @@ class Table extends Component {
       const id = target.parentElement['id'];
       if (this.props.onActivateData){
          this.props.onActivateData({
-            domId: id,
             id: id,
-            namespase: this.name,
+            namespace: this.name,
             clientX: clientX,
             clientY: clientY
          });

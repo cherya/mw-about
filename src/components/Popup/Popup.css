@@ -6,3 +6,8 @@
    font-family: "Magic Cards";
    line-height: 12px;
 }
+
+.popup-layout{
+   width: 100%;
+   height: 100%;
+}
