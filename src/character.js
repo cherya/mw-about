@@ -4,7 +4,7 @@ export default
    "main": {
       "Level": 22,
       "Race": "Human",
-      "Class": "Developer"
+      "Class": "Warrior"
    },
    "status": {
       "health": 155,
